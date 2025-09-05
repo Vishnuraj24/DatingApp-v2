@@ -1,5 +1,5 @@
 import { ApplicationConfig, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { lastValueFrom } from 'rxjs';
 export const appConfig: ApplicationConfig = {
   providers:
     [provideZoneChangeDetection({ eventCoalescing: true }),
-      provideRouter(routes),
+      provideRouter(routes,withViewTransitions()),
       provideHttpClient(),
       provideAppInitializer(async () => {
         const initService = inject(InitService);
@@ -27,8 +27,6 @@ export const appConfig: ApplicationConfig = {
               resolve()
             }
           }, 500);
-
-       
         })
       })
       ]
