@@ -3,6 +3,7 @@ import { AccountService } from '../../core/services/account.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ToastService } from '../../core/services/toastservice.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,6 +14,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class NavComponent {
   protected accountservice = inject(AccountService);
   private router = inject(Router);
+  private toast = inject(ToastService);
   protected creds: any = {};
 
   login() {
@@ -20,11 +22,13 @@ export class NavComponent {
       next: response => {
         this.creds = {};
         console.log('Login successful', response);
+        this.toast.success('Login successful');
         this.router.navigateByUrl('/members');
 
       },
       error: error => {
         console.error('Login failed', error);
+        this.toast.error('Login failed: ' + (error.error || 'Unknown error'));
       },
       complete: () => {
         console.log('Login request completed');
