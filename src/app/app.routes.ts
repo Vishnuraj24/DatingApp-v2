@@ -5,6 +5,9 @@ import { MemberDetailedComponent } from '../features/members/member-detailed/mem
 import { ListsComponent } from '../features/lists/lists.component';
 import { MessagesComponent } from '../features/messages/messages.component';
 import { authGuard } from '../core/guards/auth.guard';
+import { TestErrorsComponent } from '../features/test-errors/test-errors.component';
+import { NotFoundComponent } from '../shared/errors/not-found/not-found.component';
+import { ServerErrorComponent } from '../shared/errors/server-error/server-error.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,5 +22,7 @@ export const routes: Routes = [
             { path: 'messages', component: MessagesComponent }
         ]
     },
-    {path:'**',component: HomeComponent} // Wildcard route for a 404 page
+    { path: 'errors', component: TestErrorsComponent },
+    {path:'server-error',component: ServerErrorComponent},
+    {path:'**',component: NotFoundComponent} // Wildcard route for a 404 page
 ];
